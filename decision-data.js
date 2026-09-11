@@ -1,0 +1,1 @@
+window.DecisionData=(()=>{const getDecision=async()=>{if(typeof window.LumenDecisionEngine?.evaluate==='function')return window.LumenDecisionEngine.evaluate(window.LumenStrategy?.getState?.()||null);return null};return{getDecision};})();
