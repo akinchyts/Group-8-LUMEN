@@ -26,14 +26,14 @@ Why we're doing this: it's not to monitor you. It's what lets us understand, at 
 
 Check each box in this README as you go — not at the end, while you're working:
 
-- [ ] **Data**: what data will your tool actually handle? Is any of it sensitive (personal data, company customer data)? `data/customer_survey.csv` has name/email columns — did you use them in your tool? If yes, how did you protect/anonymize them? If no, why did you choose not to expose them? (A team that never touches these columns should still be able to answer — "we chose not to use them" is a valid answer.)
-- [ ] **API keys**: if your tool calls an external API (weather, or anything else), where is the key stored? Never hardcoded in a file committed to GitHub. (A valid answer: "we didn't use any external API.")
+- [x] **Data**: this analysis uses aggregate survey, market, competitor, sales, funnel, cost, channel, price-test, and seasonality data. The name/email columns in `data/customer_survey.csv` were deliberately not used or exposed.
+- [x] **API keys**: no external API was used for this analysis, so no API key is required or stored.
 - [ ] **Deployment**: if you deployed a live demo, does any endpoint or response return raw, unfiltered data (e.g. the full survey with name/email) to any visitor?
-- [ ] **Files generated along the way**: if your tool (or Codex) created new files derived from the provided data, did you think about whether they should be committed to the repo or not?
-- [ ] **Storage**: if you're keeping any data, in what structure, and why that choice over another?
+- [x] **Files generated along the way**: the business findings were saved as `docs/data-analysis-findings.md` because they are a useful, reviewable project deliverable.
+- [x] **Storage**: no additional data store was introduced; the supplied CSVs remain the source data and the findings are stored as a version-controlled Markdown document.
 - [ ] **Robustness**: what happens if the user gives an empty, inconsistent, or unexpected input?
-- [ ] **Explainability**: can you explain to someone non-technical why your tool does what it does?
-- [ ] **Business relevance**: does your prototype actually answer the problem posed in the brief, or is it an interesting technical build that's off-target?
+- [x] **Explainability**: the findings document explains the data limitations, trade-offs, and recommendation in business language.
+- [x] **Business relevance**: the analysis directly addresses Germany launch price, channel, city, timing, and the trade-offs LUMEN is choosing.
 
 These questions aren't here to slow you down — they're part of what's being evaluated. A thoughtful answer to one of them is worth more than an extra feature nobody asked for.
 
