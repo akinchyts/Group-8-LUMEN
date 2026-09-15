@@ -11,7 +11,7 @@
     const normaliseChannel=x=>x==='Retail / Grocery'?'Retail/Grocery':x;
     const weights=Array.isArray(state.channels)?Object.fromEntries(state.channels.map(x=>[normaliseChannel(x),1])):(state.channels&&Object.keys(state.channels).length?state.channels:{'DTC Online':40,'Retail/Grocery':60});
     const mix=channels.calculateMix(weights)||channels.calculateMix(Object.fromEntries(channels.rows.map(x=>[x.name,100/channels.rows.length])));
-    const cityScores=cities.cities.map(x=>({...x,score:round(clamp(Number(x.marketShare||0)*3+Number(x.cagr||0)*2+Number(x.intent||0)*4))})).sort((a,b)=>b.score-a.score);
+    const cityScores=cities.getCityRanking('directional-score');
     const city=state.city&&state.city!=='All cities'?cityScores.find(x=>x.name===state.city)||cityScores[0]:cityScores[0];
     const monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'];
     const bestMonths=[...timing.months].sort((a,b)=>Number(b.index||0)-Number(a.index||0));
