@@ -12,7 +12,7 @@
     const cityScores=cities.cities.map(x=>({...x,score:round(clamp(Number(x.marketShare||0)*3+Number(x.cagr||0)*2+Number(x.intent||0)*4))})).sort((a,b)=>b.score-a.score);
     const city=state.city&&state.city!=='All cities'?cityScores.find(x=>x.name===state.city)||cityScores[0]:cityScores[0];
     const monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'];
-    const bestMonths=[...timing.months].sort((a,b)=>Number(b.index)-Number(a.index));
+    const bestMonths=[...timing.months].sort((a,b)=>Number(b.index||0)-Number(a.index||0));
     const launchMonth=state.launchMonth&&state.launchMonth!=='Not set'?state.launchMonth:'May';
     const month=timing.getMonthContext(monthNames.indexOf(launchMonth)+1)?.seasonality||bestMonths[0]||{};
     const marketingRows=marketing.channels;
@@ -24,7 +24,7 @@
     const blendedLTV=selectedMarketing.reduce((s,x)=>s+x.customers*x.ltv,0)/Math.max(1,selectedMarketing.reduce((s,x)=>s+x.customers,0));
     const customers=selectedMarketing.reduce((s,x)=>s+x.customers,0);
     const netRevenue=customers*Number(mix.netRevenue||0), contribution=customers*Number(mix.contribution||0);
-    const acceptance=Number(priceRow?.acceptance||0)*100;
+    const acceptance=Number(priceRow?.acceptance||0);
     const priceScore=clamp(acceptance*0.75+Number(priceRow?.margin||0)*25);
     const channelScore=clamp(Number(mix.contribution||0)/1.2*100);
     const timingScore=clamp(Number(month.index||100)/1.38);
