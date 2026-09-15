@@ -7,7 +7,9 @@
     ]);
     const price=Number(state.price)||2.19;
     const priceRow=pricing.options.find(x=>Number(x.price)===price)||pricing.options.find(x=>Number(x.price)===2.19)||pricing.options[0];
-    const weights=Array.isArray(state.channels)?Object.fromEntries(state.channels.map(x=>[x,1])):(state.channels&&Object.keys(state.channels).length?state.channels:{'DTC Online':40,'Retail / Grocery':60});
+    const channelNames=channels.rows.map(x=>x.name);
+    const normaliseChannel=x=>x==='Retail / Grocery'?'Retail/Grocery':x;
+    const weights=Array.isArray(state.channels)?Object.fromEntries(state.channels.map(x=>[normaliseChannel(x),1])):(state.channels&&Object.keys(state.channels).length?state.channels:{'DTC Online':40,'Retail/Grocery':60});
     const mix=channels.calculateMix(weights)||channels.calculateMix(Object.fromEntries(channels.rows.map(x=>[x.name,100/channels.rows.length])));
     const cityScores=cities.cities.map(x=>({...x,score:round(clamp(Number(x.marketShare||0)*3+Number(x.cagr||0)*2+Number(x.intent||0)*4))})).sort((a,b)=>b.score-a.score);
     const city=state.city&&state.city!=='All cities'?cityScores.find(x=>x.name===state.city)||cityScores[0]:cityScores[0];
@@ -25,7 +27,7 @@
     const customers=selectedMarketing.reduce((s,x)=>s+x.customers,0);
     const netRevenue=customers*Number(mix.netRevenue||0), contribution=customers*Number(mix.contribution||0);
     const acceptance=Number(priceRow?.acceptance||0);
-    const priceScore=clamp(acceptance*0.75+Number(priceRow?.margin||0)*25);
+    const priceScore=clamp(acceptance*.6+clamp(Number(priceRow?.margin||0),0,100)*.4);
     const channelScore=clamp(Number(mix.contribution||0)/1.2*100);
     const timingScore=clamp(Number(month.index||100)/1.38);
     const marketingScore=clamp((blendedLTV/Math.max(1,blendedCAC))/3*100);
