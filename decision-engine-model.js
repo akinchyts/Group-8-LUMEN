@@ -12,7 +12,7 @@
     const cityScores=cities.cities.map(x=>({...x,score:round(clamp(Number(x.marketShare||0)*3+Number(x.cagr||0)*2+Number(x.intent||0)*4))})).sort((a,b)=>b.score-a.score);
     const city=state.city&&state.city!=='All cities'?cityScores.find(x=>x.name===state.city)||cityScores[0]:cityScores[0];
     const monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'];
-    const bestMonths=[...timing.months].sort((a,b)=>Number(b.seasonality_index)-Number(a.seasonality_index));
+    const bestMonths=[...timing.months].sort((a,b)=>Number(b.index)-Number(a.index));
     const launchMonth=state.launchMonth&&state.launchMonth!=='Not set'?state.launchMonth:'May';
     const month=timing.getMonthContext(monthNames.indexOf(launchMonth)+1)?.seasonality||bestMonths[0]||{};
     const marketingRows=marketing.channels;
