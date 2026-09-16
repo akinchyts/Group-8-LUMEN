@@ -20,7 +20,7 @@ for a number that isn't there.
 | 1 | `market_context.csv` | Germany functional-beverage market size by sub-category (2022-2027) and by region/city — use this to size the opportunity and think about where to launch first. |
 | 2 | `competitor_prices_by_channel.csv` | Current prices of LUMEN's 4 real-world-benchmarked competitors, by channel and pack format. |
 | 3 | `competitor_price_history.csv` | 12 months of competitor price/promo activity — useful if you want to look at pricing dynamics over time, not just a snapshot. |
-| 4 | `customer_survey.csv` | ~420 synthetic German respondents: segment, demographics, spend, channel preference, brand awareness, purchase intent. |
+| 4 | `customer_survey.csv` | ~420 synthetic German respondents: segment, demographics, spend, channel preference, brand awareness, purchase intent. Direct identifiers are removed before deployment. |
 | 5 | `customer_quotes.csv` | A handful of qualitative verbatims by segment. Worth reading closely — not everything here agrees with the quantitative survey. |
 | 6 | `historical_sales_weekly.csv` | 78 weeks of actual LUMEN sales by country and channel (NL/DK/SE only — see the constraint above). |
 | 7 | `marketing_funnel_monthly.csv` | 18 months of marketing performance by channel: reach, engagement, conversions, spend, CAC, estimated LTV. |
@@ -48,6 +48,6 @@ for a number that isn't there.
   pulling in a real, live public data source (e.g. current German weather via
   a public API) and correlating it with the seasonality data here. Not
   required, but it's there if your team wants to push further.
-- **Some files contain name/email-style fields** (`customer_survey.csv`). Take
-  a moment as a team to decide how you'll handle that in your build and your
-  repo — it's worth a line in `PROMPTS.md`.
+- **The public survey export contains no direct identifiers.** The original
+  name/email-style fields are not needed for the product and must not be
+  reintroduced into a browser-accessible file or endpoint.
